@@ -98,43 +98,42 @@ systemctl restart docker.service
 
 5. WRITE COMPOSE FILE AND PUSH TO GITHUB
 
-version: '3'
+---
+version: "3.8"
 services:
-  devops:
-    image: rahamshaik/devopsreponit:latest
+  movies:
+    image: ganeshlalam163/moviesrepo:latest
     ports:
-      - "80:80"
-    volumes:
-      - "devopsvol"
+      - 81:80
     deploy:
       replicas: 3
+    volumes:
+      - movies
+  train:
+    image: ganeshlalam163/trainrepo:latest
+    ports:
+      - 82:80
+    deploy:
+      replicas: 3
+    volumes:
+      - train
+  dth:
+    image: ganeshlalam163/dthrepo:latest
+    ports:
+      - 83:80
+    deploy:
+      replicas: 3
+    volumes:
+      - dth
+  recharge:
+    image: ganeshlalam163/rechargerepo:latest
+    ports:
+      - 84:80
+    deploy:
+      replicas: 3
+    volumes:
+      - recharge
 
-  aws:
-    image: rahamshaik/awsreponit:latest
-    ports:
-      - "81:80"
-    volumes:
-      - "awsvol"
-    deploy:
-      replicas: 3
-
-  datascience:
-    image: rahamshaik/datasciencereponit:latest
-    ports:
-      - "82:80"
-    volumes:
-      - "datasciencevol"
-    deploy:
-      replicas: 3
-
-  azure:
-    image: rahamshaik/azurereponit:latest
-    ports:
-      - "83:80"
-    volumes:
-      - "azurevol"
-    deploy:
-      replicas: 3
 
 DOCKER STACK:
 Docker stack is used to create multiple services on multiple hosts. i.e it will create multiple containers on multile servers with the help of compose file.
